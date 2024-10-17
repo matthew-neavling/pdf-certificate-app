@@ -9,6 +9,8 @@ interface IndexParams {
   last: string
 }
 
+const PORT = process.env.VITE_PORT||8080
+
 const app = express();
 
 app.set('view engine', 'pug');
@@ -20,28 +22,22 @@ app.use(bodyParser.json());
 
 app.get("/", (req: Request<{}, {}, {}, IndexParams>, res) => {
   const { query } = req;
-  res.render('index', { first: query.first, last: query.last });
+  res.render('index', { first: query.first || ``, last: query.last || `` });
 });
 
 app.post("/submit", (req, res) => {
   const form = req.body;
-
-  // console.log(form);
-
   // TODO: type checking and form validation
-
-  // TODO: generate PDF
 
   res.writeHead(200, { "Content-Type": "application/pdf" })
   writePdf(res, form)
   res.end();
-  // res.redirect('/');
 })
 
 // app.post("/download", (req, res)=>{
 //   res.writeHead()
 // })
 
-ViteExpress.listen(app, 3000, () =>
-  console.log("Server is listening on port 3000..."),
+ViteExpress.listen(app, PORT, () =>
+  console.log(`Server is listening on port ${PORT}...`),
 );
