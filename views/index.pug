@@ -1,0 +1,24 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title App 
+    body 
+        form(action="/submit", method="post")
+            p 
+                label(for="first") First 
+                input(type="text", name="first" value=`${first}`)
+            p
+                label(for="last") Last
+                input(type="text", name="last" value=`${last}`) 
+            p
+                label(for="course") Course 
+                select(name="course")
+                    option(value="Personal Care Home Admin") Personal Care Home Admin 
+                    option(value="Grant Writing") Grant Writing 
+                    option(value="Budgeting for Grant Writing") Budgeting for Grant Writing
+
+            button(type="submit") View
+
+            //- button(type="submit" formaction="download") Download
