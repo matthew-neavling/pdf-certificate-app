@@ -9,6 +9,8 @@ interface IndexParams {
   last: string
 }
 
+const PORT = process.env.NODE_ENV == 'production' ? 80 : Number(process.env.VITE_PORT)||8080
+
 const app = express();
 
 app.set('view engine', 'pug');
@@ -18,12 +20,12 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.get("/", (req: Request<{}, {}, {}, IndexParams>, res) => {
+app.get("/", (req: Request<{}, {}, {}, IndexParams>, res:Response) => {
   const { query } = req;
-  res.render('index', { first: query.first, last: query.last });
+  res.render('index', { first: query.first || '', last: query.last || '' });
 });
 
-app.post("/submit", (req, res) => {
+app.post("/submit", (req:Request, res:Response) => {
   const form = req.body;
 
   // console.log(form);
@@ -42,6 +44,6 @@ app.post("/submit", (req, res) => {
 //   res.writeHead()
 // })
 
-ViteExpress.listen(app, 3000, () =>
-  console.log("Server is listening on port 3000..."),
+ViteExpress.listen(app, PORT, () =>
+  console.log(`Server is listening on port ${PORT}...`),
 );
