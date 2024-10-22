@@ -27,17 +27,11 @@ app.get("/", (req: Request<{}, {}, {}, IndexParams>, res:Response) => {
 
 app.post("/submit", (req:Request, res:Response) => {
   const form = req.body;
-
-  // console.log(form);
-
   // TODO: type checking and form validation
-
-  // TODO: generate PDF
 
   res.writeHead(200, { "Content-Type": "application/pdf" })
   writePdf(res, form)
   res.end();
-  // res.redirect('/');
 })
 
 // app.post("/download", (req, res)=>{
