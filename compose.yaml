@@ -1,0 +1,6 @@
+services:
+  app:
+    build: .
+    container_name: pdf-app
+    ports:
+      - 8080:80
